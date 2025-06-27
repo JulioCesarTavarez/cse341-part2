@@ -1,0 +1,187 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Pokemon API",
+    "version": "1.0.0",
+    "description": "A simple API to manage Pokemon entries"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local development server"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get all Pokemon",
+        "tags": ["Pokemon"],
+        "responses": {
+          "200": {
+            "description": "A list of Pokemon",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pokemon"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pokemon": {
+      "post": {
+        "summary": "Create a new Pokemon",
+        "tags": ["Pokemon"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pokemon"
+              },
+              "example": {
+                "pokeName": "Pikachu",
+                "pokeSet": "Electric",
+                "pokePrice": 50,
+                "pokeType": "Static"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pokemon created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/pokemon/{id}": {
+      "get": {
+        "summary": "Get a Pokemon by ID",
+        "tags": ["Pokemon"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pokemon data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pokemon"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pokemon not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Pokemon by ID",
+        "tags": ["Pokemon"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pokemon"
+              },
+              "example": {
+                "pokeName": "Raichu",
+                "pokeSet": "Electric",
+                "pokePrice": 100,
+                "pokeType": "Static"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pokemon updated"
+          },
+          "404": {
+            "description": "Pokemon not found"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Pokemon by ID",
+        "tags": ["Pokemon"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pokemon deleted"
+          },
+          "404": {
+            "description": "Pokemon not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pokemon": {
+        "type": "object",
+        "properties": {
+          "pokeName": {
+            "type": "string",
+            "example": "Charmander"
+          },
+          "pokeSet": {
+            "type": "string",
+            "example": "Fire"
+          },
+          "pokePrice": {
+            "type": "number",
+            "example": 30
+          },
+          "pokeType": {
+            "type": "string",
+            "example": "Blaze"
+          }
+        },
+        "required": ["pokeName", "pokeSet", "pokePrice", "pokeType"]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Pokemon",
+      "description": "Pokemon management endpoints"
+    }
+  ]
+}

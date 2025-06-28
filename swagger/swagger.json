@@ -12,6 +12,151 @@
     }
   ],
   "paths": {
+    "/allTrainers": {
+      "get": {
+        "summary": "Get all Trainers",
+        "tags": ["Trainer"],
+        "responses": {
+          "200": {
+            "description": "A list of trainers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Trainer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trainer": {
+      "post": {
+        "summary": "Create a new Trainer",
+        "tags": ["Trainer"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Trainer"
+              },
+              "example": {
+                "name": "Ash Ketchum",
+                "region": "Kanto",
+                "age": 10,
+                "badges": 8,
+                "specialtyType": "Electric",
+                "isChampion": true,
+                "favoritePokemon": "Pikachu"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Trainer created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/trainer/{id}": {
+      "get": {
+        "summary": "Get a Trainer by ID",
+        "tags": ["Trainer"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trainer data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trainer"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Trainer not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Trainer by ID",
+        "tags": ["Trainer"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Trainer"
+              },
+              "example": {
+                "name": "Misty",
+                "region": "Kanto",
+                "age": 12,
+                "badges": 4,
+                "specialtyType": "Water",
+                "isChampion": false,
+                "favoritePokemon": "Starmie"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Trainer updated"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Trainer not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Trainer by ID",
+        "tags": ["Trainer"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trainer deleted"
+          },
+          "404": {
+            "description": "Trainer not found"
+          }
+        }
+      }
+    },
     "/": {
       "get": {
         "summary": "Get all Pokemon",
@@ -154,6 +299,49 @@
   },
   "components": {
     "schemas": {
+      "Trainer": {
+         "type": "object",
+         "properties": {
+           "name": {
+             "type": "string",
+             "example": "Brock"
+           },
+           "region": {
+             "type": "string",
+             "example": "Kanto"
+           },
+           "age": {
+             "type": "integer",
+             "example": 15
+           },
+           "badges": {
+             "type": "integer",
+             "example": 5
+           },
+           "specialtyType": {
+             "type": "string",
+             "example": "Rock"
+           },
+           "isChampion": {
+             "type": "boolean",
+             "example": false
+           },
+           "favoritePokemon": {
+             "type": "string",
+             "example": "Onix"
+           }
+         },
+         "required": [
+           "name",
+           "region",
+           "age",
+           "badges",
+           "specialtyType",
+           "isChampion",
+           "favoritePokemon"
+         ]
+       }
+       ,
       "Pokemon": {
         "type": "object",
         "properties": {
@@ -182,6 +370,11 @@
     {
       "name": "Pokemon",
       "description": "Pokemon management endpoints"
+    },
+    {
+      "name": "Trainer",
+      "description": "Trainer management endpoints"
     }
+
   ]
 }

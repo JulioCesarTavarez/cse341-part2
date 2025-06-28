@@ -1,3 +1,4 @@
+
 const Pokemon = require("../models/pokemon");
 
 // Get all pokemon
@@ -20,6 +21,9 @@ const getPokemonById = async (req, res) => {
 };
 
 const createPokemon = async (req, res) => {
+  if(!req.body.pokeName || !req.body.pokeSet || !req.body.pokePrice || !req.body.pokeType){
+      return res.status(400).json({ message: "All fields are required" });
+  }
     const pokemon = new Pokemon({
         pokeName: req.body.pokeName,
         pokeSet: req.body.pokeSet,

@@ -1,15 +1,18 @@
 {
   "name": "cse341-part2",
   "scripts": {
-   "dev": "nodemon --env-file=.env server.js",
+    "dev": "nodemon --env-file=.env server.js",
     "start": "nodemon index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "express-session": "^1.18.1",
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },

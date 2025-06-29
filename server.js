@@ -46,7 +46,7 @@ app.get("/logout", (req, res) => {
 
 app.get("/profile", (req, res) => {
   if (!req.isAuthenticated()) {
-    return res.status(401).send("Not logged in");
+    app.redirect("/auth/google/callback");
   }
   res.send(req.user); // or render profile
 });

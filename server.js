@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const passport = require('passport');
 const session = require('express-session');
 
-require('./config/passport');
+require('./config/passport.js');
 const cors = require('cors');
 
 const pokeRoutes = require('./routes/routes.js');
